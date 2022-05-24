@@ -35,6 +35,7 @@ public class Menu {
 			case 4: ReaderService.showReaderInfo();
 			break;
 			case 5: BookBorrowService.borrowBook();
+			BookBorrowService.showInfoBookBorrow();
 			break;
 			case 6: BookBorrowService.sortBorrow();
 			break;

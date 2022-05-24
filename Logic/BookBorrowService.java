@@ -115,7 +115,7 @@ public class BookBorrowService {
 			idReader = Utils.Henta().nextInt();
 			for(int j = 0; j < Main.READERS.length; j++) {
 				if(Main.READERS[j] != null && Main.READERS[i].getId() == idReader) {
-					reader = Main.READERS[i];
+					reader = Main.READERS[j];
 					break;
 				}
 				
@@ -127,9 +127,6 @@ public class BookBorrowService {
 		}while(true);
 		return reader;
 	}
-	
-	
-	
 	
 	
 	public static BookBorrowDetail [] inputBookBorrowDetail() {
@@ -155,58 +152,39 @@ public class BookBorrowService {
 		
 		BookBorrowDetail[] bookBorrowDetails = new BookBorrowDetail[numberBookBorrow];
 		for(int i = 0; i < numberBookBorrow; i++) {
-			System.out.println("Nhập đầu sách thứ " + (i + 1) + " mà bạn đọc này muốn mượn");
+			System.out.println("Nhập mã đầu sách thứ " + (i + 1) + " mà bạn đọc này muốn mượn");
 			Book book = null;
-			int idBook =  -1;
-			boolean check1 = false;
+			int idBook = 0;
 			do {
-				do {
-					try {
-						idBook = Utils.Henta().nextInt();
-						check1 = true;
-						System.out.println("dfwe");
-					}catch(Exception e) {
-						System.out.println("Dữ liệu ko hợp lệ, nhập lại ");
-						Utils.Henta().next();
-					}
-				}while(check1);
+				idBook = Utils.Henta().nextInt();
 				
 				for(int j = 0; j < Main.BOOKS.length; j++) {
 					if(idBook == Main.BOOKS[j].getId() && Main.BOOKS[j] != null) {
-						book = Main.BOOKS[i];
+						book = Main.BOOKS[j];
 						break;
 					}
 				}
-				System.out.println("KHông tìm thấy mã sách vừa nhập");
+			
 				
 				if(book != null) {
 					break;
 				}
+				System.out.println("KHông tìm thấy mã sách vừa nhập");
 			}while(true);
 			
 			System.out.println("Nhập vào số lượng sách bạn đọc muốn mượn");
 			int bookNumber = 0;
-			boolean ktra = false;
-			
 			do {
-				try {
-					bookNumber = Utils.Henta().nextInt();
-					ktra = true;
-					if(bookNumber > 0 && bookNumber <= 3) {
-						break;
-					}
-					System.out.println("Bạn chỉ được mượn 3 cuốn cho 1 đầu sách");
+				bookNumber = Utils.Henta().nextInt();
+				if(bookNumber > 0 && bookNumber <= 3) {
+					break;
 				}
-				catch(Exception e) {
-					System.out.println("Dữ liệu nhập vào ko hợp lệ, nhập lại");
-					Utils.Henta().next();
-				}
-				
+				System.out.println("Bạn chỉ được mượn 3 cuốn cho 1 đầu sách");
 				
 			}
-			while(ktra || bookNumber < 0 || bookNumber >= 3 );
+			while(true);
 			
-			BookBorrowDetail bookBorrowDetail = new BookBorrowDetail();
+			BookBorrowDetail bookBorrowDetail = new BookBorrowDetail(book, bookNumber);
 			for(int k = 0; k < bookBorrowDetails.length ;k++) {
 				if(bookBorrowDetails[k] == null) {
 					bookBorrowDetails[k] = bookBorrowDetail;
