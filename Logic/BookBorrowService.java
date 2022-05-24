@@ -50,6 +50,9 @@ public class BookBorrowService {
 		
 		
 	}
+	public void sortByQuantity() {
+		
+	}
 	
 	public static void searchBorrowByNameReader() {
 		System.out.println("Nhập tên bạn đọc");
